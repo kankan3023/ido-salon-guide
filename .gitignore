@@ -1,0 +1,8 @@
+# 公開しない作業ファイル（ツアー内部資料など）
+*.jpg
+*.jpeg
+*.png
+*.pdf
+*.xlsx
+*.docx
+tsukuba-tour-prompt.md
