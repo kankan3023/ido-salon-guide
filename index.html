@@ -89,6 +89,12 @@
   .sched td { font-size: 15px; line-height: 1.7; }
   .sched td .place { font-weight: bold; }
   .sched td .detail { font-size: 13.5px; color: #777; }
+  .map-link {
+    display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px;
+    margin-left: 6px; border: 1.5px solid #D7E5F7; border-radius: 50%; background: #fff;
+    color: #1E5FA8; text-decoration: none; vertical-align: middle; font-size: 16px; line-height: 1;
+  }
+  .map-link:active { background: #E7F0FA; }
 
   /* アコーディオン読み物 */
   details.topic { background: #fff; border: 1.5px solid #E5E0D4; border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
@@ -248,7 +254,7 @@
     <tr><th>15:50<br>〜16:45</th><td><span class="place">🚀 JAXA 筑波宇宙センター</span>（55分）<br><span class="detail">展示館自由見学。16:00〜約40分の説明員ガイドあり（参加は自由）</span></td></tr>
     <tr><th>17:00</th><td><span class="place">つくば出発</span><br><span class="detail">帰りのバスで「答え合わせ＆ふりかえりクイズ」をどうぞ</span></td></tr>
     <tr><th>18:30</th><td><span class="place">秋葉原 到着</span></td></tr>
-    <tr><th>19:00〜</th><td><span class="place">🏮 納涼会</span><br><span class="detail">KICHIRI 秋葉原</span></td></tr>
+    <tr><th>19:00〜</th><td><span class="place">🏮 納涼会</span><br><span class="detail">KICHIRI 秋葉原<a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=KICHIRI%20%E7%A7%8B%E8%91%89%E5%8E%9F" target="_blank" rel="noopener" aria-label="KICHIRI 秋葉原をGoogleマップで開く" title="Googleマップで開く">📍</a></span></td></tr>
   </table>
   <p class="note">各施設の「時間の使い方のコツ」は、それぞれの施設ページの最後の読み物にまとめてあります。</p>
 </section>
@@ -292,7 +298,7 @@
   <rect x="0" y="0" width="360" height="240" fill="#FFFDF7"/>
   <path d="M183 59L124 154h118Z" fill="#E9F4EF" stroke="#444" stroke-width="2" stroke-linejoin="round"/>
   <path d="M183 59L164 92l20-11 17 14Z" fill="#2E7D5B" opacity="0.35"/>
-  <text x="198" y="53" font-family="sans-serif" font-size="15" fill="#444">山頂など遠くの目標</text>
+  <text x="224" y="78" font-family="sans-serif" font-size="14" fill="#444">遠くの目標</text>
   <line x1="70" y1="195" x2="290" y2="195" stroke="#444" stroke-width="3" stroke-linecap="round"/>
   <circle cx="70" cy="195" r="5" fill="#2E7D5B"/>
   <circle cx="290" cy="195" r="5" fill="#2E7D5B"/>
@@ -305,8 +311,8 @@
   <path d="M268 195a22 22 0 0 1 7-17" fill="none" stroke="#2E7D5B" stroke-width="2"/>
   <text x="91" y="172" font-family="sans-serif" font-size="14" fill="#444">角度</text>
   <text x="244" y="172" font-family="sans-serif" font-size="14" fill="#444">角度</text>
-  <text x="23" y="29" font-family="sans-serif" font-size="14" fill="#444">2点間の距離と角度がわかれば、</text>
-  <text x="23" y="48" font-family="sans-serif" font-size="14" fill="#444">行けない場所までの距離も計算できる</text>
+  <text x="18" y="25" font-family="sans-serif" font-size="13.5" fill="#444">2点間の距離と角度がわかれば、</text>
+  <text x="18" y="52" font-family="sans-serif" font-size="13.5" fill="#444">行けない場所までの距離も計算できる</text>
 </svg></div>
       <p class="fig-cap">三角測量の考え方</p>
       <p>現代版の基準点が「電子基準点」です。GNSS（GPSなどの測位衛星）の電波を24時間受け続けるアンテナで、全国に約1,300点。測量の基準になるだけでなく、地震国日本の地面の動き（地殻変動）を監視する役目も担っています。</p>
