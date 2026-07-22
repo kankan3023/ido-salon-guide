@@ -330,15 +330,17 @@
     <div class="e-score">現地クイズ20問おつかれさまでした！ あなたの成績：<strong id="entryScore"></strong></div>
     <label for="entryName">お名前（表彰時に読み上げます）</label>
     <input type="text" id="entryName" maxlength="20" placeholder="例：印刷 太郎" autocomplete="off">
+    <label for="entryGuess">🎯 同点決着ニアピン問題：今日の参加者<strong>全員の正解数を合計</strong>すると、何点になると思いますか？</label>
+    <input type="text" id="entryGuess" inputmode="numeric" maxlength="6" placeholder="例：250（数字で予想）" autocomplete="off">
     <button class="e-send" id="entrySend">結果を送信する</button>
-    <p class="e-note">送信フォームが開いたら、内容を確認して「送信」を押してください。圏外で開けないときは、電波が入る場所でもう一度このボタンを押せばOK。成績優秀者は納涼会で表彰します！</p>
+    <p class="e-note">同点のときはニアピン問題の予想が正解に近い方が上位です（正解発表は納涼会で！）。送信フォームが開いたら、内容を確認して「送信」を押してください。圏外で開けないときは、電波が入る場所でもう一度このボタンを押せばOK。成績優秀者は納涼会で表彰します！</p>
     <div class="e-sent">✅ エントリー受付ページを開きました。フォームの「送信」まで押したか、ご確認ください。（何度でも押し直せます。集計では同じ名前の最初の送信を採用します）</div>
   </div>
 
   <h2>ようこそ、移動サロン2026へ</h2>
   <p>今日は茨城県つくば市の3つの科学施設をめぐる日帰りツアーです。このアプリは、<strong>行きのバス約2時間</strong>で見学先の予備知識をさらっと仕入れるための予習ガイド。</p>
   <p>展示の中身のネタバレはしません。「これを知ってから見ると、現地が何倍も面白くなる」——そんな背景のお話をご用意しました。</p>
-  <p>そして今年は<strong>クイズ選手権</strong>を開催します。各施設に<strong>現地の展示を見ないと答えられない3択クイズ</strong>が全20問。バスの中で読み物を予習しておき、現地で答えを探してください。全問回答するとこのホーム画面からエントリーでき、<strong>成績優秀者は夜の納涼会で表彰</strong>します🏆（同点の場合は、20問目に答え終わった時刻が早い方が上位です）</p>
+  <p>そして今年は<strong>クイズ選手権</strong>を開催します。各施設に<strong>現地の展示を見ないと答えられない3択クイズ</strong>が全20問。バスの中で読み物を予習しておき、現地で答えを探してください。全問回答するとこのホーム画面からエントリーでき、<strong>成績優秀者は夜の納涼会で表彰</strong>します🏆（同点の場合は、エントリー時の「ニアピン問題」で決着します）</p>
   <p class="note">🚌 乗り物酔いが心配な方へ——バスでは各施設ページ冒頭の「⚡30秒まとめ」と、クイズの📍ヒントだけ見ればOK。読み物は現地の待ち時間や帰り道でゆっくりどうぞ。</p>
   <p class="note">※ 一度このページを開けば、以降は電波がなくても動きます。高速道路でも見学中でも安心してどうぞ。</p>
 
@@ -1199,6 +1201,7 @@ var FORM = {
   entry: {
     name:     "entry.REPLACE_NAME",
     score:    "entry.REPLACE_SCORE",
+    guess:    "entry.REPLACE_GUESS",
     finished: "entry.REPLACE_FINISHED",
     pattern:  "entry.REPLACE_PATTERN",
     code:     "entry.REPLACE_CODE"
@@ -1228,8 +1231,8 @@ function answerPattern() {
   return parts.join("/");
 }
 
-function makeCode(name, pattern, finishedAt) {
-  var src = name + "|" + pattern + "|" + finishedAt + "|" + CODE_SALT;
+function makeCode(name, pattern, guess, finishedAt) {
+  var src = name + "|" + pattern + "|" + guess + "|" + finishedAt + "|" + CODE_SALT;
   var h = 5381;
   for (var i = 0; i < src.length; i++) {
     h = ((h * 33) ^ src.charCodeAt(i)) >>> 0;
@@ -1260,17 +1263,26 @@ function renderEntry() {
 
 (function setupEntry() {
   var input = document.getElementById("entryName");
+  var guessInput = document.getElementById("entryGuess");
   var btn = document.getElementById("entrySend");
   if (!input || !btn) return;
   if (state.name) input.value = state.name;
+  if (state.guess) guessInput.value = state.guess;
   input.addEventListener("input", function () {
     state.name = input.value.trim();
     input.style.borderColor = "";
     save();
   });
+  guessInput.addEventListener("input", function () {
+    state.guess = guessInput.value.trim();
+    guessInput.style.borderColor = "";
+    save();
+  });
   btn.addEventListener("click", function () {
     var name = (input.value || "").trim();
     if (!name) { input.focus(); input.style.borderColor = "#C0392B"; return; }
+    var guess = (guessInput.value || "").trim();
+    if (!/^[0-9]+$/.test(guess)) { guessInput.focus(); guessInput.style.borderColor = "#C0392B"; return; }
     var s = scoredStats();
     if (s.answered < s.total) return;
     var pattern = answerPattern();
@@ -1279,9 +1291,10 @@ function renderEntry() {
       "usp=pp_url",
       FORM.entry.name + "=" + encodeURIComponent(name),
       FORM.entry.score + "=" + encodeURIComponent(s.correct + "/" + s.total),
+      FORM.entry.guess + "=" + encodeURIComponent(guess),
       FORM.entry.finished + "=" + encodeURIComponent(fmtTime(finished) + " (" + finished + ")"),
       FORM.entry.pattern + "=" + encodeURIComponent(pattern),
-      FORM.entry.code + "=" + encodeURIComponent(makeCode(name, pattern, finished))
+      FORM.entry.code + "=" + encodeURIComponent(makeCode(name, pattern, guess, finished))
     ];
     window.open(FORM.url + "?" + params.join("&"), "_blank");
     state.entered = true;
