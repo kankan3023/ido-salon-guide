@@ -119,6 +119,18 @@
   .fig svg { width: 100%; height: auto; display: block; }
   .fig-cap { font-size: 13px; color: #888; text-align: center; margin-top: 4px; }
 
+  /* 30秒まとめ */
+  .digest { background: #fff; border-radius: 14px; padding: 15px 16px 12px; margin: 0 0 20px;
+            border-left: 5px solid var(--acc); box-shadow: 0 8px 24px rgba(18,35,55,.08); }
+  .digest .d-head { font-size: 14px; font-weight: 900; color: var(--acc); letter-spacing: .06em; margin-bottom: 6px; }
+  .digest ol { list-style: none; }
+  .digest li { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; font-size: 16px; line-height: 1.65; }
+  .digest li + li { border-top: 1px dashed #E5E0D4; }
+  .digest .d-ico { flex: 0 0 auto; font-size: 20px; line-height: 1.4; }
+  .digest li strong { color: #17243A; }
+  .digest li .d-sub { display: block; font-size: 13.5px; color: #6C7B8D; }
+  .digest .d-foot { font-size: 13px; color: #888; margin-top: 8px; padding-top: 8px; border-top: 1px solid #EFEAE0; }
+
   /* ミッション */
   .mission { border: 2px dashed var(--acc); border-radius: 12px; padding: 14px 16px; margin: 16px 0; background: #fff; }
   .mission .m-tag { font-weight: bold; color: var(--acc); font-size: 15px; }
@@ -327,6 +339,7 @@
   <p>今日は茨城県つくば市の3つの科学施設をめぐる日帰りツアーです。このアプリは、<strong>行きのバス約2時間</strong>で見学先の予備知識をさらっと仕入れるための予習ガイド。</p>
   <p>展示の中身のネタバレはしません。「これを知ってから見ると、現地が何倍も面白くなる」——そんな背景のお話をご用意しました。</p>
   <p>そして今年は<strong>クイズ選手権</strong>を開催します。各施設に<strong>現地の展示を見ないと答えられない3択クイズ</strong>が全20問。バスの中で読み物を予習しておき、現地で答えを探してください。全問回答するとこのホーム画面からエントリーでき、<strong>成績優秀者は夜の納涼会で表彰</strong>します🏆（同点の場合は、20問目に答え終わった時刻が早い方が上位です）</p>
+  <p class="note">🚌 乗り物酔いが心配な方へ——バスでは各施設ページ冒頭の「⚡30秒まとめ」と、クイズの📍ヒントだけ見ればOK。読み物は現地の待ち時間や帰り道でゆっくりどうぞ。</p>
   <p class="note">※ 一度このページを開けば、以降は電波がなくても動きます。高速道路でも見学中でも安心してどうぞ。</p>
 
   <h3 style="border-color:#1E5FA8">今日めぐる3つの施設</h3>
@@ -383,13 +396,23 @@
     <span class="ftime">13:30〜14:40 ｜ VTR＋説明＋自由見学30分</span>
   </div>
 
+  <div class="digest">
+    <div class="d-head">⚡ 30秒まとめ｜これだけ知っていればOK</div>
+    <ol>
+      <li><span class="d-ico">🗺️</span><span><strong>日本中の地図の“製造元”</strong>、国土地理院の展示館。<span class="d-sub">スマホの地図も元をたどればここの測量成果</span></span></li>
+      <li><span class="d-ico">🌏</span><span>名物は<strong>屋外の巨大日本列島模型</strong>と測量飛行機くにかぜ。<span class="d-sub">模型の上には乗れます</span></span></li>
+      <li><span class="d-ico">⏱</span><span>自由見学30分は<strong>屋外→館内の順</strong>がおすすめ。<span class="d-sub">大物を先に押さえるのがコツ</span></span></li>
+    </ol>
+    <div class="d-foot">バスではこのまとめと、クイズの📍ヒントだけ見ればOK。</div>
+  </div>
+
   <figure class="learning-visual">
     <img src="visual-gsi.png" alt="日本列島の電子基準点と測位衛星の関係を示した図解" loading="lazy">
     <figcaption><strong>空と地上で、日本の位置を測り続ける</strong>全国約1,300点の電子基準点が測位衛星の電波を受信。測量の基準だけでなく、地殻のわずかな動きも捉えます。<div class="visual-key"><span>測位衛星</span><span>電子基準点</span><span>地殻変動</span></div></figcaption>
   </figure>
 
   <h3 style="border-color:#2E7D5B">📖 予習読み物（6項目）</h3>
-  <p class="note">タイトルを押すと開きます。読んだ項目には「✓読了」がつきます。</p>
+  <p class="note">タイトルを押すと開きます。読んだ項目には「✓読了」がつきます。全部読まなくて大丈夫——現地の待ち時間や帰りのバスにもどうぞ。</p>
 
   <details class="topic" data-read="gsi-1">
     <summary><span class="no">1</span><span class="ttl">国土地理院ってどんなところ？</span><span class="readmark">✓読了</span></summary>
@@ -534,13 +557,23 @@
     <span class="ftime">15:00〜15:40 ｜ 自由見学40分</span>
   </div>
 
+  <div class="digest">
+    <div class="d-head">⚡ 30秒まとめ｜これだけ知っていればOK</div>
+    <ol>
+      <li><span class="d-ico">🪨</span><span><strong>入館無料の“日本の大地の資料室”</strong>。<span class="d-sub">研究の現場で使われてきた本物の標本が並ぶ</span></span></li>
+      <li><span class="d-ico">🦴</span><span>目玉は謎の絶滅哺乳類<strong>デスモスチルス</strong>と日本列島3Dマッピング。<span class="d-sub">どちらも1階</span></span></li>
+      <li><span class="d-ico">⏱</span><span>滞在40分。<strong>1階→2階の優先ルート</strong>で回るのがコツ。<span class="d-sub">詳しくは読み物6</span></span></li>
+    </ol>
+    <div class="d-foot">バスではこのまとめと、クイズの📍ヒントだけ見ればOK。</div>
+  </div>
+
   <figure class="learning-visual">
     <img src="visual-geology.png" alt="古い岩石から現代までを地層と化石で示した図解" loading="lazy">
     <figcaption><strong>地層は、時間が積み重なった記録</strong>深いほど古く、上ほど新しい。アンモナイトやデスモスチルスなど、異なる時代の生物が大地の時間を教えてくれます。<div class="visual-key"><span>46億年</span><span>アンモナイト</span><span>デスモスチルス</span></div></figcaption>
   </figure>
 
   <h3 style="border-color:#A0622D">📖 予習読み物（6項目）</h3>
-  <p class="note">タイトルを押すと開きます。読んだ項目には「✓読了」がつきます。</p>
+  <p class="note">タイトルを押すと開きます。読んだ項目には「✓読了」がつきます。全部読まなくて大丈夫——現地の待ち時間や帰りのバスにもどうぞ。</p>
 
   <details class="topic" data-read="geo-1">
     <summary><span class="no">1</span><span class="ttl">地質標本館ってどんなところ？</span><span class="readmark">✓読了</span></summary>
@@ -649,13 +682,23 @@
     <span class="ftime">15:50〜16:45 ｜ 16:00〜約40分の説明員ガイドあり</span>
   </div>
 
+  <div class="digest">
+    <div class="d-head">⚡ 30秒まとめ｜これだけ知っていればOK</div>
+    <ol>
+      <li><span class="d-ico">🎛️</span><span>ニュースで見る<strong>“筑波の管制室”の敷地</strong>に実際に入ります。<span class="d-sub">日本の宇宙開発の現場</span></span></li>
+      <li><span class="d-ico">🚀</span><span>目玉は全長50mの<strong>H-IIロケット実機</strong>と「きぼう」実物大モデル。<span class="d-sub">ロケット広場で記念撮影を</span></span></li>
+      <li><span class="d-ico">⏱</span><span><strong>16:00からのガイドに参加するか</strong>、事前に決めておくとスムーズ。<span class="d-sub">迷ったら読み物7</span></span></li>
+    </ol>
+    <div class="d-foot">バスではこのまとめと、クイズの📍ヒントだけ見ればOK。</div>
+  </div>
+
   <figure class="learning-visual">
     <img src="visual-jaxa.png" alt="ペンシルロケットからH-IIロケット、国際宇宙ステーションへ至る大きさの比較図" loading="lazy">
     <figcaption><strong>23cmから、宇宙の実験室へ</strong>日本の宇宙開発は小さなペンシルロケットから始まり、約50mのH-II、そしてISS最大の実験棟「きぼう」へつながりました。<div class="visual-key"><span>23cm</span><span>約50m</span><span>ISS「きぼう」</span></div></figcaption>
   </figure>
 
   <h3 style="border-color:#1E5FA8">📖 予習読み物（7項目）</h3>
-  <p class="note">タイトルを押すと開きます。読んだ項目には「✓読了」がつきます。</p>
+  <p class="note">タイトルを押すと開きます。読んだ項目には「✓読了」がつきます。全部読まなくて大丈夫——現地の待ち時間や帰りのバスにもどうぞ。</p>
 
   <details class="topic" data-read="jaxa-1">
     <summary><span class="no">1</span><span class="ttl">筑波宇宙センターってどんなところ？</span><span class="readmark">✓読了</span></summary>
