@@ -2,6 +2,8 @@
 *.jpg
 *.jpeg
 *.png
+!pop-up-journey.png
+!visual-*.png
 *.pdf
 *.xlsx
 *.docx
