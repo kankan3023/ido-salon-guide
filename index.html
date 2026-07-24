@@ -3,26 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#071225">
+<meta name="theme-color" content="#1E5FA8">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>移動サロン2026 つくばサイエンスツアー 予習ガイド（準備中）</title>
+<title>移動サロン2026 つくばサイエンスツアー 予習ガイド</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    background:
-      radial-gradient(circle at 82% 18%, rgba(88,215,255,.22), transparent 34%),
-      linear-gradient(145deg, #071225, #102A52 72%, #123E54);
-    color: #fff; padding: 24px; text-align: center; line-height: 1.9;
+    font-size: 17px;
+    line-height: 1.9;
+    color: #333;
+    background: #F4F1EA;
   }
-  .box { max-width: 480px; }
-  .kicker { color: #B9F36B; font-size: 12px; font-weight: 800; letter-spacing: .16em; }
-  h1 { font-size: clamp(22px, 6vw, 30px); line-height: 1.4; margin: 10px 0 22px; }
-  .badge {
-    display: inline-block; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
-    border-radius: 999px; padding: 6px 20px; font-size: 15px; font-weight: bold; color: #58D7FF;
-    margin-bottom: 20px; backdrop-filter: blur(6px);
+  .wrap { max-width: 640px; margin: 0 auto; min-height: 100vh; background: #FFFDF7; box-shadow: 0 0 12px rgba(0,0,0,.08); }
+
+  /* ヘッダー */
+  header { background: linear-gradient(135deg, #1E5FA8, #2E7D5B); color: #fff; padding: 20px 18px 14px; }
+  header .kicker { font-size: 13px; letter-spacing: .1em; opacity: .9; }
+  header h1 { font-size: 21px; line-height: 1.5; margin-top: 2px; }
+  header .sub { font-size: 13px; opacity: .9; margin-top: 2px; }
+
+  /* ナビ */
+  nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 2px solid #E5E0D4;
+        display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    flex: 1 0 auto; min-width: 88px; padding: 12px 10px 10px; border: none; background: none;
+    font-family: inherit; font-size: 14px; color: #666; cursor: pointer;
+    border-bottom: 3px solid transparent; line-height: 1.4; white-space: nowrap;
   }
   nav button .ico { display: block; font-size: 19px; }
   nav button.active { color: #1E5FA8; border-bottom-color: #1E5FA8; font-weight: bold; background: #F5FAFF; }
