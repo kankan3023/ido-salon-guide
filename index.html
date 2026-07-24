@@ -173,6 +173,7 @@
     display: block; width: 100%; font-family: inherit; font-size: 17px; padding: 10px 12px;
     border: 1.5px solid #ccc; border-radius: 10px; margin-bottom: 12px; background: #fff; color: #333;
   }
+  .entry-card input[type="text"]:disabled { background: #F3F1EA; color: #888; border-style: dashed; }
   .entry-card button.e-send {
     display: block; width: 100%; font-family: inherit; font-size: 17px; font-weight: bold;
     padding: 13px; border: none; border-radius: 12px; background: linear-gradient(135deg, #E8B93C, #D99A2B);
@@ -1345,6 +1346,23 @@ function renderEntry() {
       ? "✅ 予備のエントリーフォームを開きました。フォームの「送信」まで押したか、ご確認ください。<br>回答はロックされました。各施設ページで<strong>答え合わせと解説</strong>が見られます！"
       : "✅ 送信完了！エントリーを受け付けました。<br>回答はロックされました。各施設ページで<strong>答え合わせと解説</strong>が見られます！";
   }
+  /* 送信後は名前・ニアピンをロックし、再送は凍結内容のみ */
+  var nameInput = document.getElementById("entryName");
+  var guessInput2 = document.getElementById("entryGuess");
+  var sendBtn = document.getElementById("entrySend");
+  if (state.entered) {
+    if (state.payload) {
+      nameInput.value = state.payload.name;
+      guessInput2.value = state.payload.guess;
+    }
+    nameInput.disabled = true;
+    guessInput2.disabled = true;
+    if (sendBtn.textContent !== "送信中…") sendBtn.textContent = "もう一度送信する（同じ内容で再送）";
+  } else {
+    nameInput.disabled = false;
+    guessInput2.disabled = false;
+    if (sendBtn.textContent !== "送信中…") sendBtn.textContent = "結果を送信する";
+  }
   card.classList.toggle("sent", !!state.entered);
 }
 
@@ -1366,18 +1384,28 @@ function renderEntry() {
     save();
   });
   btn.addEventListener("click", function () {
-    var name = (input.value || "").trim();
-    if (!name) { input.focus(); input.style.borderColor = "#C0392B"; return; }
-    var guess = (guessInput.value || "").trim();
-    if (!/^[0-9]+$/.test(guess)) { guessInput.focus(); guessInput.style.borderColor = "#C0392B"; return; }
-    var s = scoredStats();
-    if (s.answered < s.total) return;
-    var pattern = answerPattern();
-    var finished = state.finishedAt || Date.now();
-    var finishedText = fmtTime(finished) + " (" + finished + ")";
-    var code = makeCode(name, pattern, guess, finished);
+    var payload;
+    if (state.entered && state.payload) {
+      /* 送信済み: 初回に凍結した内容だけを再送できる(通信不安時の保険) */
+      payload = state.payload;
+    } else {
+      var name = (input.value || "").trim();
+      if (!name) { input.focus(); input.style.borderColor = "#C0392B"; return; }
+      var guess = (guessInput.value || "").trim();
+      if (!/^[0-9]+$/.test(guess)) { guessInput.focus(); guessInput.style.borderColor = "#C0392B"; return; }
+      var s = scoredStats();
+      if (s.answered < s.total) return;
+      var pattern = answerPattern();
+      var finished = state.finishedAt || Date.now();
+      payload = {
+        name: name, score: s.correct + "/" + s.total, guess: guess,
+        finished: fmtTime(finished) + " (" + finished + ")",
+        pattern: pattern, code: makeCode(name, pattern, guess, finished)
+      };
+    }
 
     function lockIn(via) {
+      if (!state.payload) state.payload = payload; /* 初回送信の内容を凍結 */
       var firstEntry = !state.entered;
       state.entered = true;
       state.sentVia = via;
@@ -1389,20 +1417,19 @@ function renderEntry() {
         renderQuiz("jaxa");
         renderProgress();
       }
-      renderEntry();
       btn.disabled = false;
-      btn.textContent = "もう一度送信する";
+      renderEntry();
     }
 
     function fallbackForm() {
       var params = [
         "usp=pp_url",
-        FORM.entry.name + "=" + encodeURIComponent(name),
-        FORM.entry.score + "=" + encodeURIComponent(s.correct + "/" + s.total),
-        FORM.entry.guess + "=" + encodeURIComponent(guess),
-        FORM.entry.finished + "=" + encodeURIComponent(finishedText),
-        FORM.entry.pattern + "=" + encodeURIComponent(pattern),
-        FORM.entry.code + "=" + encodeURIComponent(code)
+        FORM.entry.name + "=" + encodeURIComponent(payload.name),
+        FORM.entry.score + "=" + encodeURIComponent(payload.score),
+        FORM.entry.guess + "=" + encodeURIComponent(payload.guess),
+        FORM.entry.finished + "=" + encodeURIComponent(payload.finished),
+        FORM.entry.pattern + "=" + encodeURIComponent(payload.pattern),
+        FORM.entry.code + "=" + encodeURIComponent(payload.code)
       ];
       window.open(FORM.url + "?" + params.join("&"), "_blank");
       lockIn("form");
@@ -1411,10 +1438,7 @@ function renderEntry() {
     btn.disabled = true;
     btn.textContent = "送信中…";
     if (GAS_URL.indexOf("https://") !== 0) { fallbackForm(); return; }
-    sendToGas({
-      name: name, score: s.correct + "/" + s.total, guess: guess,
-      finished: finishedText, pattern: pattern, code: code
-    }).then(function () { lockIn("gas"); })
+    sendToGas(payload).then(function () { lockIn("gas"); })
       .catch(function () { fallbackForm(); });
   });
 })();

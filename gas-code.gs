@@ -48,7 +48,16 @@ function doPost(e) {
       var lock = LockService.getScriptLock();
       lock.waitLock(10000);
       try {
-        getEntrySheet().appendRow([new Date(), name, score, guess, finished, pattern, code, flag]);
+        var sh = getEntrySheet();
+        /* 同名の2回目以降は🔁重複を付与(再送の保険は許容し、集計時は最初の行を採用) */
+        var last = sh.getLastRow();
+        if (last >= 2) {
+          var names = sh.getRange(2, 2, last - 1, 1).getValues();
+          for (var i = 0; i < names.length; i++) {
+            if (String(names[i][0]) === name) { flag += "・🔁重複"; break; }
+          }
+        }
+        sh.appendRow([new Date(), name, score, guess, finished, pattern, code, flag]);
       } finally {
         lock.releaseLock();
       }
