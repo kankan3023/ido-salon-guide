@@ -174,6 +174,11 @@
     border: 1.5px solid #ccc; border-radius: 10px; margin-bottom: 12px; background: #fff; color: #333;
   }
   .entry-card input[type="text"]:disabled { background: #F3F1EA; color: #888; border-style: dashed; }
+  .e-done { display: none; font-size: 21px; font-weight: 900; text-align: center;
+            border-radius: 12px; padding: 16px 12px; margin-bottom: 14px; line-height: 1.5; }
+  .e-done.ok { display: block; background: #E9F4EF; color: #1D5E42; border: 2.5px solid #2E7D5B; }
+  .e-done.warn { display: block; background: #FDF3E3; color: #935F10; border: 2.5px solid #D99A2B; }
+  .entry-card.sent button.e-send { background: linear-gradient(135deg, #2E7D5B, #1E5FA8); }
   .entry-card button.e-send {
     display: block; width: 100%; font-family: inherit; font-size: 17px; font-weight: bold;
     padding: 13px; border: none; border-radius: 12px; background: linear-gradient(135deg, #E8B93C, #D99A2B);
@@ -333,6 +338,7 @@
   </div>
 
   <div class="entry-card" id="entryCard">
+    <div class="e-done" id="entryDone"></div>
     <div class="e-head">🏆 クイズ選手権にエントリー</div>
     <div class="e-score" id="entryScoreLine"></div>
     <label for="entryName">お名前（表彰時に読み上げます）</label>
@@ -1350,6 +1356,7 @@ function renderEntry() {
   var nameInput = document.getElementById("entryName");
   var guessInput2 = document.getElementById("entryGuess");
   var sendBtn = document.getElementById("entrySend");
+  var doneBanner2 = document.getElementById("entryDone");
   if (state.entered) {
     if (state.payload) {
       nameInput.value = state.payload.name;
@@ -1357,11 +1364,21 @@ function renderEntry() {
     }
     nameInput.disabled = true;
     guessInput2.disabled = true;
-    if (sendBtn.textContent !== "送信中…") sendBtn.textContent = "もう一度送信する（同じ内容で再送）";
+    if (state.sentVia === "gas") {
+      sendBtn.textContent = "✅ 送信完了";
+      doneBanner2.className = "e-done ok";
+      doneBanner2.textContent = "✅ エントリー送信完了！";
+    } else {
+      sendBtn.textContent = "もう一度送信する";
+      doneBanner2.className = "e-done warn";
+      doneBanner2.textContent = "📨 予備フォームで送信手続き中";
+    }
   } else {
     nameInput.disabled = false;
     guessInput2.disabled = false;
-    if (sendBtn.textContent !== "送信中…") sendBtn.textContent = "結果を送信する";
+    sendBtn.textContent = "結果を送信する";
+    doneBanner2.className = "e-done";
+    doneBanner2.textContent = "";
   }
   card.classList.toggle("sent", !!state.entered);
 }
@@ -1419,6 +1436,11 @@ function renderEntry() {
       }
       btn.disabled = false;
       renderEntry();
+      if (firstEntry) {
+        showPage("home");
+        var banner = document.getElementById("entryDone");
+        if (banner && banner.scrollIntoView) banner.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
 
     function fallbackForm() {
