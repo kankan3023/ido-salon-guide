@@ -1023,12 +1023,22 @@ var FACILITIES = ["gsi", "geo", "jaxa"];
 
 /* ========== 保存 ========== */
 var STORE_KEY = "idoSalon2026";
-var state = { read: {}, quiz: {} };
+var STORE_VERSION = 2; /* クイズの選択肢並びを変えたら上げる(旧回答はインデックスがずれるため) */
+var state = { v: STORE_VERSION, read: {}, quiz: {} };
 try {
   var saved = localStorage.getItem(STORE_KEY);
   if (saved) state = JSON.parse(saved) || state;
   if (!state.read) state.read = {};
   if (!state.quiz) state.quiz = {};
+  if (state.v !== STORE_VERSION) {
+    /* 旧バージョンの保存データ: 回答・完了時刻・送信フラグを破棄して新規状態で開始(名前・ニアピンは維持) */
+    state.quiz = {};
+    delete state.finishedAt;
+    delete state.entered;
+    delete state.sentVia;
+    state.v = STORE_VERSION;
+    save();
+  }
 } catch (e) { /* プライベートモード等では保存なしで動作 */ }
 
 function save() {
