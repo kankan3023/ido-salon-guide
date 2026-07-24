@@ -246,6 +246,7 @@
   details.topic .body { border-top:1px solid var(--line); padding:5px 17px 18px; }
   .learning-visual { margin:18px 0 24px; overflow:hidden; border-radius:18px; background:var(--navy); color:white; box-shadow:0 18px 38px rgba(5,15,31,.2); }
   .learning-visual img { display:block; width:100%; aspect-ratio:3/2; object-fit:cover; }
+  .learning-visual svg { display:block; width:100%; height:auto; background:#FFFDF5; }
   .learning-visual figcaption { padding:14px 16px 16px; font-size:14px; line-height:1.65; color:#D6E3F1; }
   .learning-visual figcaption strong { display:block; margin-bottom:3px; color:var(--lime); font-size:16px; }
   .visual-key { display:flex; gap:7px; flex-wrap:wrap; margin-top:9px; }
@@ -418,8 +419,49 @@
   </div>
 
   <figure class="learning-visual">
-    <img src="visual-gsi.png" alt="日本列島の電子基準点と測位衛星の関係を示した図解" loading="lazy">
-    <figcaption><strong>空と地上で、日本の位置を測り続ける</strong>全国約1,300点の電子基準点が測位衛星の電波を受信。測量の基準だけでなく、地殻のわずかな動きも捉えます。<div class="visual-key"><span>測位衛星</span><span>電子基準点</span><span>地殻変動</span></div></figcaption>
+    <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="衛星・飛行機・地上の基準点で日本を測るしくみの図解">
+      <rect width="360" height="240" fill="#FFFDF5"/>
+      <!-- 地面 -->
+      <path d="M8 182C70 178 150 185 230 181 290 179 330 183 352 181" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- 測位衛星 -->
+      <g transform="translate(56 38) rotate(-10)">
+        <rect x="-12" y="-9" width="24" height="18" rx="3" fill="#E9F4EF" stroke="#444" stroke-width="2"/>
+        <rect x="-40" y="-6" width="21" height="13" rx="1" fill="#CDE9DB" stroke="#444" stroke-width="2"/>
+        <rect x="19" y="-6" width="21" height="13" rx="1" fill="#CDE9DB" stroke="#444" stroke-width="2"/>
+        <line x1="-19" y1="0" x2="-12" y2="0" stroke="#444" stroke-width="2"/>
+        <line x1="12" y1="0" x2="19" y2="0" stroke="#444" stroke-width="2"/>
+      </g>
+      <text x="22" y="15" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#2E7D5B">測位衛星</text>
+      <!-- 電波: 衛星→電子基準点 -->
+      <path d="M64 58C74 88 84 118 92 138" fill="none" stroke="#2E7D5B" stroke-width="1.8" stroke-dasharray="4 5"/>
+      <path d="M84 96l7 5M80 110l7 5" stroke="#2E7D5B" stroke-width="1.5" fill="none"/>
+      <!-- 電子基準点(アンテナ) -->
+      <line x1="96" y1="182" x2="96" y2="150" stroke="#444" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M87 150c2-7 16-7 18 0" fill="#E9F4EF" stroke="#444" stroke-width="2"/>
+      <line x1="88" y1="182" x2="104" y2="182" stroke="#444" stroke-width="2.5" stroke-linecap="round"/>
+      <text x="96" y="200" text-anchor="middle" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#444">電子基準点</text>
+      <text x="96" y="214" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#777">全国約1,300点・24時間受信</text>
+      <!-- くにかぜ(空中写真測量) -->
+      <g transform="translate(196 52) rotate(4)">
+        <path d="M-24 0C-16-4 14-4 24-1 18 3 -14 4 -24 0Z" fill="#fff" stroke="#444" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M-4-2 -14-14 -4-14 4-2Z" fill="#CDE9DB" stroke="#444" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="-27" cy="0" r="4" fill="none" stroke="#444" stroke-width="1.6"/>
+      </g>
+      <text x="196" y="24" text-anchor="middle" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#2E7D5B">測量機くにかぜ</text>
+      <!-- 撮影範囲 -->
+      <path d="M196 64 170 178M196 64 226 178" stroke="#2E7D5B" stroke-width="1.5" stroke-dasharray="3 4" fill="none"/>
+      <path d="M170 178C188 172 208 172 226 178" fill="#E9F4EF" opacity=".7" stroke="none"/>
+      <text x="197" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2E7D5B">空中写真</text>
+      <!-- 日本列島球体模型 -->
+      <path d="M252 181A46 46 0 0 1 344 181Z" fill="#E9F4EF" stroke="#444" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M262 168c9-9 20-13 30-10 9 3 15 7 26 5" fill="none" stroke="#2E7D5B" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="298" cy="118" r="4" fill="#444"/>
+      <path d="M298 122v9M298 125l-5 4M298 125l5 4M298 131l-4 6M298 131l4 6" stroke="#444" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="292" y="200" text-anchor="middle" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#444">日本列島球体模型</text>
+      <text x="292" y="214" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#777">乗ると300km上空の眺め</text>
+      <text x="180" y="234" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#666">宇宙・空・地上のチームワークで日本の位置を測っている</text>
+    </svg>
+    <figcaption><strong>空と地上で、日本の位置を測り続ける</strong>全国約1,300点の電子基準点が測位衛星の電波を受信。測量の基準だけでなく、地殻のわずかな動きも捉えます。<div class="visual-key"><span>測位衛星</span><span>電子基準点</span><span>球体模型</span></div></figcaption>
   </figure>
 
   <h3 style="border-color:#2E7D5B">📖 予習読み物（6項目）</h3>
@@ -579,7 +621,47 @@
   </div>
 
   <figure class="learning-visual">
-    <img src="visual-geology.png" alt="古い岩石から現代までを地層と化石で示した図解" loading="lazy">
+    <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="地面の断面図。深い地層ほど古く、化石やマグマが眠っている">
+      <rect width="360" height="240" fill="#FFFDF5"/>
+      <!-- 地層断面 -->
+      <path d="M20 96C90 92 200 99 340 95L340 214 20 214Z" fill="#F6EBDE" stroke="none"/>
+      <path d="M20 128C100 124 220 132 340 127L340 214 20 214Z" fill="#EAD3B4"/>
+      <path d="M20 160C110 156 230 164 340 159L340 214 20 214Z" fill="#D9B489"/>
+      <path d="M20 190C120 187 240 193 340 189L340 214 20 214Z" fill="#C09263"/>
+      <path d="M20 96C90 92 200 99 340 95M20 128C100 124 220 132 340 127M20 160C110 156 230 164 340 159M20 190C120 187 240 193 340 189" fill="none" stroke="#8A6034" stroke-width="1.6"/>
+      <path d="M20 96V214H340V95" fill="none" stroke="#444" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- 地表: 地質標本館 -->
+      <path d="M52 96V72h36v24" fill="#fff" stroke="#444" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M46 73 70 60 94 73Z" fill="#EAD3B4" stroke="#444" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="64" y="82" width="12" height="14" fill="#D9B489" stroke="#444" stroke-width="1.8"/>
+      <text x="70" y="50" text-anchor="middle" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#A0622D">地質標本館</text>
+      <!-- 火山 -->
+      <path d="M232 96 262 46 292 96" fill="#EAD3B4" stroke="#444" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M255 52c3-2 11-2 14 0" fill="none" stroke="#C0392B" stroke-width="2"/>
+      <path d="M262 42c-3-6 4-8 2-14" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round"/>
+      <text x="300" y="46" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#A0622D">火山</text>
+      <!-- マグマの通り道 -->
+      <path d="M262 210c-4-24 6-40 0-62 -5-18 3-30 0-52" fill="none" stroke="#C0392B" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+      <text x="272" y="206" font-family="sans-serif" font-size="10" fill="#C0392B">マグマ</text>
+      <!-- 化石: アンモナイト -->
+      <g transform="translate(120 146)">
+        <path d="M2 0a4 4 0 1 1-7 3c-3-6 3-12 10-11 9 1 14 9 11 17-3 9-14 13-23 9-11-5-14-19-6-28" fill="none" stroke="#7A5230" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M15 -6l5-4M17 5l6 1M11 13l3 6" stroke="#7A5230" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <text x="120" y="126" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#6B4626">アンモナイト</text>
+      <!-- 化石: デスモスチルスの骨 -->
+      <g transform="translate(180 200) rotate(-8)">
+        <path d="M-14-3a4 4 0 1 1 3-6 4 4 0 1 1 6 3l10 0a4 4 0 1 1 6-3 4 4 0 1 1 3 6 4 4 0 1 1-3 6 4 4 0 1 1-6-3l-10 0a4 4 0 1 1-6 3 4 4 0 1 1-3-6Z" fill="#FFF8EC" stroke="#7A5230" stroke-width="1.8"/>
+      </g>
+      <text x="180" y="183" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#6B4626">デスモスチルスの骨</text>
+      <!-- 時間軸 -->
+      <path d="M348 100v104" stroke="#A0622D" stroke-width="2"/>
+      <path d="M344 198l4 8 4-8" fill="none" stroke="#A0622D" stroke-width="2" stroke-linejoin="round"/>
+      <text x="356" y="112" text-anchor="end" font-family="sans-serif" font-size="9.5" fill="#A0622D" transform="rotate(90 351 108)">下ほど古い</text>
+      <!-- プレート -->
+      <path d="M28 225h40M68 225l-7-4M68 225l-7 4M332 225h-40M292 225l7-4M292 225l7 4" stroke="#A0622D" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="180" y="230" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#666">プレートが押し合う→地震・火山・温泉</text>
+    </svg>
     <figcaption><strong>地層は、時間が積み重なった記録</strong>深いほど古く、上ほど新しい。アンモナイトやデスモスチルスなど、異なる時代の生物が大地の時間を教えてくれます。<div class="visual-key"><span>46億年</span><span>アンモナイト</span><span>デスモスチルス</span></div></figcaption>
   </figure>
 
@@ -704,7 +786,42 @@
   </div>
 
   <figure class="learning-visual">
-    <img src="visual-jaxa.png" alt="ペンシルロケットからH-IIロケット、国際宇宙ステーションへ至る大きさの比較図" loading="lazy">
+    <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ペンシルロケットからH-IIロケット、ISSのきぼうへつながる日本の宇宙開発の図解">
+      <rect width="360" height="240" fill="#FFFDF5"/>
+      <!-- 地球(右下) -->
+      <circle cx="368" cy="268" r="96" fill="#DCEBF8" stroke="#444" stroke-width="2.5"/>
+      <path d="M300 220c8-8 20-8 26-2M330 196c6-5 16-6 22-2" fill="none" stroke="#7FA86B" stroke-width="4" stroke-linecap="round"/>
+      <!-- 軌道(約400km)とISS -->
+      <path d="M212 250A150 150 0 0 1 360 116" fill="none" stroke="#1E5FA8" stroke-width="1.6" stroke-dasharray="5 6"/>
+      <text x="350" y="106" text-anchor="end" font-family="sans-serif" font-size="10" fill="#1E5FA8">地上約400kmの軌道</text>
+      <g transform="translate(258 168) rotate(-24)">
+        <rect x="-34" y="-5" width="20" height="10" rx="1" fill="#CFE3F7" stroke="#444" stroke-width="1.8"/>
+        <rect x="14" y="-5" width="20" height="10" rx="1" fill="#CFE3F7" stroke="#444" stroke-width="1.8"/>
+        <line x1="-14" y1="0" x2="14" y2="0" stroke="#444" stroke-width="2.5"/>
+        <rect x="-8" y="-7" width="16" height="14" rx="4" fill="#F5D66B" stroke="#444" stroke-width="2"/>
+      </g>
+      <path d="M262 148c8-10 22-16 34-16" fill="none" stroke="#8A6d1B" stroke-width="1.4" stroke-dasharray="3 3"/>
+      <text x="350" y="128" text-anchor="end" font-family="sans-serif" font-size="11" font-weight="bold" fill="#8A6D1B">きぼう＝ISS最大</text>
+      <!-- H-IIロケット上昇 -->
+      <g transform="translate(96 108) rotate(-6)">
+        <path d="M0-58 -11-38h22Z" fill="#CFE3F7" stroke="#444" stroke-width="2" stroke-linejoin="round"/>
+        <rect x="-11" y="-38" width="22" height="74" fill="#fff" stroke="#444" stroke-width="2"/>
+        <rect x="-20" y="-22" width="8" height="52" rx="4" fill="#CFE3F7" stroke="#444" stroke-width="2"/>
+        <rect x="12" y="-22" width="8" height="52" rx="4" fill="#CFE3F7" stroke="#444" stroke-width="2"/>
+        <path d="M-8 36c2 10 4 14 8 22 4-8 6-12 8-22" fill="#F5A25B" stroke="#C0392B" stroke-width="2" stroke-linejoin="round"/>
+      </g>
+      <path d="M74 190c-6 8-8 14-9 22M96 196c-2 8-2 14-1 22" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="1 6"/>
+      <text x="30" y="36" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1E5FA8">H-II 全長約50m</text>
+      <text x="30" y="50" font-family="sans-serif" font-size="10" fill="#777">実機がロケット広場に</text>
+      <!-- 原点: ペンシルロケット -->
+      <circle cx="52" cy="190" r="24" fill="#fff" stroke="#444" stroke-width="2"/>
+      <g transform="translate(52 189) rotate(-30)">
+        <path d="M0-11 -2.5-7h5Z" fill="#F5D66B" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/>
+        <rect x="-2.5" y="-7" width="5" height="16" fill="#fff" stroke="#444" stroke-width="1.5"/>
+      </g>
+      <text x="62" y="230" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#1E5FA8">ペンシル23cm (1955)</text>
+      <path d="M72 172c10-10 20-24 28-40" fill="none" stroke="#1E5FA8" stroke-width="1.6" stroke-dasharray="4 4"/>
+    </svg>
     <figcaption><strong>23cmから、宇宙の実験室へ</strong>日本の宇宙開発は小さなペンシルロケットから始まり、約50mのH-II、そしてISS最大の実験棟「きぼう」へつながりました。<div class="visual-key"><span>23cm</span><span>約50m</span><span>ISS「きぼう」</span></div></figcaption>
   </figure>
 
